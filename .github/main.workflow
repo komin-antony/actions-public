@@ -1,6 +1,6 @@
 workflow "New workflow" {
   on = "push"
-  resolves = ["Docker Tag"]
+  resolves = ["Docker Build & Push"]
 }
 
 action "Docker Login" {
