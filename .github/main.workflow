@@ -3,12 +3,17 @@ workflow "New workflow" {
   resolves = ["Docker Push"]
 }
 
-action "GitHub Action for Docker" {
+action "Golang Lint" {
+  uses = "stefanprodan/gh-actions-demo/actions/golang@master"
+  args = "fmt"
+}
+
+action "Docker Build" {
   uses = "actions/docker/cli@master"
   args = "build -t kbhai/actions:test ."
 }
 
-action "Docker Registry" {
+action "Docker Login" {
   uses = "actions/docker/login@master"
   needs = ["GitHub Action for Docker"]
   secrets = ["DOCKER_USERNAME", "DOCKER_PASSWORD"]
