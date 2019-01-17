@@ -1,15 +1,22 @@
 workflow "Docker Deploy" {
   on = "push"
-  resolves = ["GitHub Action for Docker"]
+  resolves = ["Docker Push"]
 }
 
-action "Docker Registry" {
+action "Docker Build" {
+  uses = "actions/docker/cli@master"
+  args = "build -t kbhai/actions:${GITHUB_SHA} ."
+}
+
+action "Docker Login" {
+  needs = ["Docker Build"]
   uses = "actions/docker/login@master"
   secrets = ["DOCKER_USERNAME", "DOCKER_PASSWORD"]
 }
 
-action "GitHub Action for Docker" {
+action "Docker Push" {
+  needs = ["Docker Push"]
   uses = "actions/docker/cli@master"
-  needs = ["Docker Registry"]
-  args = "build -t komony/actions-public ."
+  args = "push kbhai/actions:${GITHUB_SHA}"
 }
+
