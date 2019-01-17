@@ -5,7 +5,7 @@ workflow "Docker Deploy" {
 
 action "Docker Build" {
   uses = "actions/docker/cli@master"
-  args = "build -t kbhai/actions:${GITHUB_SHA} ."
+  args = "build -t kbhai/actions:test ."
 }
 
 action "Docker Login" {
@@ -17,6 +17,6 @@ action "Docker Login" {
 action "Docker Push" {
   needs = ["Docker Push"]
   uses = "actions/docker/cli@master"
-  args = "push kbhai/actions:${GITHUB_SHA}"
+  args = "push kbhai/actions:test"
 }
 
