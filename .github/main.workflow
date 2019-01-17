@@ -1,11 +1,11 @@
 workflow "New workflow" {
   on = "push"
-  resolves = ["Docker Tag"]
+  resolves = ["Docker Push"]
 }
 
 action "GitHub Action for Docker" {
   uses = "actions/docker/cli@master"
-  args = "build -t komony/actions-public ."
+  args = "build -t kbhai/actions:test ."
 }
 
 action "Docker Registry" {
@@ -14,8 +14,8 @@ action "Docker Registry" {
   secrets = ["DOCKER_USERNAME", "DOCKER_PASSWORD"]
 }
 
-action "Docker Tag" {
-  uses = "actions/docker/tag@master"
+action "Docker Push" {
+  uses = "actions/docker/cli@master"
   needs = ["Docker Registry"]
-  args = "actions-public kbhai/actions-public"
+  args = "push kbhai/actions:test"
 }
