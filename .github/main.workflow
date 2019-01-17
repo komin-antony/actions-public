@@ -3,14 +3,14 @@ workflow "New workflow" {
   resolves = ["Docker Push"]
 }
 
-action "Golang Build" {
-  uses = "stefanprodan/gh-actions-demo/actions/golang@master"
+action "Golang Lint" {
+  uses = "stefanprodan/gh-actions-demo/.github/actions/golang@master"
   args = "fmt"
 }
 
 action "Docker Build" {
   uses = "actions/docker/cli@master"
-  needs = ["Golang Build"]
+  needs = ["Golang Lint"]
   args = "build -t kbhai/actions:test ."
 }
 
