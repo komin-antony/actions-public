@@ -9,6 +9,7 @@ action "Golang Lint" {
 }
 
 action "Docker Build" {
+  needs = ["Golang Lint"]
   uses = "actions/docker/cli@master"
   args = "build -t kbhai/actions:test ."
 }
