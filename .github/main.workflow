@@ -1,6 +1,6 @@
 workflow "New workflow" {
   on = "push"
-  resolves = ["Docker Push"]
+  resolves = ["GitHub Action for Google Cloud SDK auth"]
 }
 
 action "Golang Lint" {
@@ -24,4 +24,10 @@ action "Docker Push" {
   uses = "actions/docker/cli@master"
   needs = ["Docker Login"]
   args = "push kbhai/actions:test"
+}
+
+action "GitHub Action for Google Cloud SDK auth" {
+  uses = "actions/gcloud/auth@master"
+  needs = ["Docker Push"]
+  secrets = ["GCLOUD_AUTH"]
 }
