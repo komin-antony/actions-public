@@ -1,4 +1,4 @@
-workflow "New workflow" {
+workflow "Deploy Web App" {
   on = "push"
   resolves = ["GitHub Action for Google Cloud"]
 }
