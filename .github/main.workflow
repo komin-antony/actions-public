@@ -1,6 +1,9 @@
 workflow "Deploy Web App" {
   on = "push"
-  resolves = ["Google Cloud Deploy App"]
+  resolves = [
+    "Google Cloud Deploy App",
+    "Docker Build (Heroku)",
+  ]
 }
 
 action "Golang Lint" {
@@ -8,7 +11,7 @@ action "Golang Lint" {
   args = "fmt"
 }
 
-action "Docker Build" {
+action "Docker Build (GCloud)" {
   uses = "actions/docker/cli@master"
   needs = ["Golang Lint"]
   args = "build -f Dockerfile.gcloud -t kbhai/actions:google ."
@@ -16,11 +19,11 @@ action "Docker Build" {
 
 action "Docker Login" {
   uses = "actions/docker/login@master"
-  needs = ["Docker Build"]
   secrets = ["DOCKER_USERNAME", "DOCKER_PASSWORD"]
+  needs = ["Docker Build (GCloud)"]
 }
 
-action "Docker Push" {
+action "Docker Push (GCloud)" {
   uses = "actions/docker/cli@master"
   needs = ["Docker Login"]
   args = "push kbhai/actions:google"
@@ -28,11 +31,17 @@ action "Docker Push" {
 
 action "Google Cloud Login" {
   uses = "actions/gcloud/auth@master"
-  needs = ["Docker Push"]
   secrets = ["GCLOUD_AUTH"]
+  needs = ["Docker Push (GCloud)"]
 }
 
 action "Google Cloud Deploy App" {
   uses = "komony/actions-public/actions/gcloud-kube@master"
   needs = ["Google Cloud Login"]
+}
+
+action "Docker Build (Heroku)" {
+  uses = "actions/docker/cli@master"
+  needs = ["Golang Lint"]
+  args = "build -f Dockerfile.gcloud -t kbhai/actions:heroku ."
 }
