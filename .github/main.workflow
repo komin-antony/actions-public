@@ -3,7 +3,7 @@ workflow "Deploy Web App" {
   resolves = [
     "Google Cloud Deploy App",
     "Docker Push (Azure)",
-    "Heroku Container Push",
+    "Heroku Release",
   ]
 }
 
