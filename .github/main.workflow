@@ -1,8 +1,8 @@
 workflow "Deploy Web App" {
   on = "push"
   resolves = [
-    "Docker Build (Heroku)",
     "Google Cloud Deploy App",
+    "Docker Push (Heroku)",
   ]
 }
 
@@ -44,4 +44,10 @@ action "Docker Build (Heroku)" {
   uses = "actions/docker/cli@master"
   needs = ["Docker Login"]
   args = "build -f Dockerfile.gcloud -t kbhai/actions:heroku ."
+}
+
+action "Docker Push (Heroku)" {
+  uses = "actions/docker/cli@master"
+  needs = ["Docker Build (Heroku)"]
+  args = "push kbhai/actions:heroku"
 }
