@@ -3,6 +3,7 @@ workflow "Deploy Web App" {
   resolves = [
     "Google Cloud Deploy App",
     "Docker Push (Heroku)",
+    "Docker Push (Azure)"
   ]
 }
 
@@ -50,4 +51,16 @@ action "Docker Push (Heroku)" {
   uses = "actions/docker/cli@master"
   needs = ["Docker Build (Heroku)"]
   args = "push kbhai/actions:heroku"
+}
+
+action "Docker Build (Azure)" {
+  uses = "actions/docker/cli@master"
+  needs = ["Docker Login"]
+  args = "build -f Dockerfile.gcloud -t kbhai/actions:azure ."
+}
+
+action "Docker Push (Azure)" {
+  uses = "actions/docker/cli@master"
+  needs = ["Docker Build (Azure)"]
+  args = "push kbhai/actions:azure"
 }

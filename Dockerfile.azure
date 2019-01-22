@@ -11,11 +11,11 @@ RUN apt-get update && \
         -subj "/C=US/ST=Virginia/L=Fairfax/O=OrgName/OU=IT/CN=example.com" && \
     openssl x509 -req -days 365 -in /go/server.csr -signkey /go/server.key -out /go/server.crt
 
-RUN sed 's/CLOUD_PROVIDER/Heroku/' /go/main.go > /go/heroku.go
+RUN sed 's/CLOUD_PROVIDER/Azure/' /go/main.go > /go/azure.go
 
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags '-s -w' /go/heroku.go
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags '-s -w' /go/azure.go
 
-ENTRYPOINT /go/heroku
+ENTRYPOINT /go/azure
 
 # https server listens on port 8080.
 EXPOSE 443
