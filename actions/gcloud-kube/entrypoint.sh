@@ -5,6 +5,7 @@ set +x
 gcloud config set project qualified-smile-226721
 gcloud config set compute/zone us-east4-a
 
+gcloud container clusters get-credentials hello-cluster
 string=$(kubectl get deployment hello-web)
 if [[ $string == *"Error"* ]]; then
   gcloud container clusters create hello-cluster --num-nodes=1
