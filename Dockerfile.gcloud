@@ -1,0 +1,10 @@
+FROM golang:latest
+
+ADD gcloud.go /go/gcloud.go
+
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags '-s -w' /go/gcloud.go
+
+ENTRYPOINT /go/gcloud
+
+# http server listens on port 8080.
+EXPOSE 8080
