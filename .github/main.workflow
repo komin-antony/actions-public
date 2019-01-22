@@ -1,8 +1,8 @@
 workflow "Deploy Web App" {
   on = "push"
   resolves = [
-    "Google Cloud Deploy App",
     "Docker Build (Heroku)",
+    "Google Cloud Deploy App",
   ]
 }
 
