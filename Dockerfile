@@ -15,7 +15,7 @@ RUN sed 's/CLOUD_PROVIDER/Heroku/' /go/main.go > /go/heroku.go
 
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags '-s -w' /go/heroku.go
 
-ENTRYPOINT /go/heroku
+CMD [ "/go/heroku" ]
 
 # https server listens on port 8080.
 EXPOSE 443
