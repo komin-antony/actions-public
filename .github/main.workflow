@@ -11,21 +11,21 @@ action "Golang Lint" {
   args = "fmt"
 }
 
-action "Docker Build (GCloud)" {
-  uses = "actions/docker/cli@master"
-  needs = ["Golang Lint"]
-  args = "build -f Dockerfile.gcloud -t kbhai/actions:google ."
-}
-
 action "Docker Login" {
   uses = "actions/docker/login@master"
   secrets = ["DOCKER_USERNAME", "DOCKER_PASSWORD"]
-  needs = ["Docker Build (GCloud)"]
+  needs = ["Golang Lint"]
+}
+
+action "Docker Build (GCloud)" {
+  uses = "actions/docker/cli@master"
+  needs = ["Docker Login"]
+  args = "build -f Dockerfile.gcloud -t kbhai/actions:google ."
 }
 
 action "Docker Push (GCloud)" {
   uses = "actions/docker/cli@master"
-  needs = ["Docker Login"]
+  needs = ["Docker Build (GCloud)"]
   args = "push kbhai/actions:google"
 }
 
@@ -42,6 +42,6 @@ action "Google Cloud Deploy App" {
 
 action "Docker Build (Heroku)" {
   uses = "actions/docker/cli@master"
-  needs = ["Golang Lint"]
+  needs = ["Docker Login"]
   args = "build -f Dockerfile.gcloud -t kbhai/actions:heroku ."
 }

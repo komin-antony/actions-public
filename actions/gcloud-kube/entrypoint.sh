@@ -10,8 +10,8 @@ if [[ $string == *"Error"* ]]; then
   gcloud container clusters get-credentials hello-cluster
   kubectl set image deployment/hello-web hello-web=kbhai/actions:google
 else
-  kubectl run hello-web --image=kbhai/actions:google --port 8080
-  kubectl expose deployment hello-web --type=LoadBalancer --port 80 --target-port 8080
+  kubectl run hello-web --image=kbhai/actions:google --port 443
+  kubectl expose deployment hello-web --type=LoadBalancer --port 443 --target-port 443
 fi
 
 
