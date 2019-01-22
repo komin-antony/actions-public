@@ -1,5 +1,7 @@
 FROM golang:latest
 
+RUN sed 's/CLOUD_PROVIDER/GCloud/' main.go > gcloud.go
+
 ADD gcloud.go /go/gcloud.go
 
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags '-s -w' /go/gcloud.go

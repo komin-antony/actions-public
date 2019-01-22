@@ -17,16 +17,16 @@ func helloHandler(res http.ResponseWriter, req *http.Request) {
 		`<doctype html>
 <html>
 	<head>
-		<title>Gcloud - Hello World</title>
+		<title>CLOUD_PROVIDER - Hello World</title>
 	</head>
 	<body>
-		Hello World 1 - from GCloud
+		Hello World 1 - from CLOUD_PROVIDER
 	</body>
 </html>`,
 	)
 }
 func defaultHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello, this is the default page for Google")
+	fmt.Fprintf(w, "Hello, this is the default page for CLOUD_PROVIDER")
 }
 func main() {
 	http.HandleFunc("/", defaultHandler)
