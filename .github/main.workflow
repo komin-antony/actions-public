@@ -44,7 +44,7 @@ action "Google Cloud Deploy App" {
 action "Docker Build (Azure)" {
   uses = "actions/docker/cli@master"
   needs = ["Docker Login"]
-  args = "build -f Dockerfile.gcloud -t kbhai/actions:azure ."
+  args = "build -f Dockerfile.azure -t kbhai/actions:azure ."
 }
 
 action "Docker Push (Azure)" {
