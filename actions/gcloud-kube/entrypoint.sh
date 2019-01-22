@@ -1,7 +1,5 @@
 #!/bin/bash -l
 
-set +x
-
 gcloud config set project qualified-smile-226721
 gcloud config set compute/zone us-east4-a
 
