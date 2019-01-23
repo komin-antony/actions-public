@@ -20,7 +20,7 @@ func helloHandler(res http.ResponseWriter, req *http.Request) {
 		<title>CLOUD_PROVIDER - Hello World</title>
 	</head>
 	<body>
-		Hello World 3 - from CLOUD_PROVIDER
+		Hello World 4 - from CLOUD_PROVIDER
 	</body>
 </html>`,
 	)
@@ -31,7 +31,7 @@ func defaultHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	http.HandleFunc("/", defaultHandler)
 	http.HandleFunc("/hello", helloHandler)
-	err := http.ListenAndServe(":80", nil)
+	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 		return

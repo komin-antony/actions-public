@@ -8,5 +8,5 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags '-s -w' /go/gcloud.g
 
 ENTRYPOINT /go/gcloud
 
-# https server listens on port 80.
-EXPOSE 80
+# https server listens on port 8080.
+EXPOSE 8080
