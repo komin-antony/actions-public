@@ -23,7 +23,7 @@ action "Docker Build (GCloud)" {
 action "Docker Push (GCloud)" {
   uses = "actions/docker/cli@master"
   needs = ["Docker Build (GCloud)"]
-  args = "push kbhai/actions:google"
+  args = "push kbhai/actions:google-$GITHUB_SHA"
 }
 
 action "Google Cloud Login" {
@@ -46,7 +46,7 @@ action "Docker Build (Azure)" {
 action "Docker Push (Azure)" {
   uses = "actions/docker/cli@master"
   needs = ["Docker Build (Azure)"]
-  args = "push kbhai/actions:azure"
+  args = "push kbhai/actions:azure-$GITHUB_SHA"
 }
 
 action "Azure Deploy" {
@@ -56,7 +56,7 @@ action "Azure Deploy" {
   secrets = ["AZURE_SERVICE_APP_ID", "AZURE_SERVICE_PASSWORD", "AZURE_SERVICE_TENANT"]
   env = {
     APP_SERVICE_PLAN = "helloWorldDemoServicePlan"
-    CONTAINER_IMAGE_NAME = "kbhai/actions:azure"
+    CONTAINER_IMAGE_NAME = "kbhai/actions:azure-$GITHUB_SHA"
     RESOURCE_GROUP = "myLinuxResourceGroup"
     WEBAPP_NAME = "helloWorldWebAppGitHubActions"
   }
