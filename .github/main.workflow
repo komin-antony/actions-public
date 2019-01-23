@@ -17,7 +17,7 @@ action "Docker Login" {
 action "Docker Build (GCloud)" {
   uses = "actions/docker/cli@master"
   needs = ["Docker Login"]
-  args = "build -f Dockerfile.gcloud -t kbhai/actions:google ."
+  args = "build -f Dockerfile.gcloud -t kbhai/actions:google-$GITHUB_SHA ."
 }
 
 action "Docker Push (GCloud)" {
@@ -40,7 +40,7 @@ action "Google Cloud Deploy" {
 action "Docker Build (Azure)" {
   uses = "actions/docker/cli@master"
   needs = ["Docker Login"]
-  args = "build -f Dockerfile.azure -t kbhai/actions:azure ."
+  args = "build -f Dockerfile.azure -t kbhai/actions:azure-$GITHUB_SHA ."
 }
 
 action "Docker Push (Azure)" {
