@@ -1,10 +1,6 @@
 workflow "Deploy Web App" {
   on = "push"
-  resolves = [
-    #"Google Cloud Deploy",
-    "Azure Deploy",
-    "Heroku Deploy"
-  ]
+  resolves = [ "Google Cloud Deploy", "Azure Deploy", "Heroku Deploy" ]
 }
 
 action "Golang Lint" {
@@ -18,28 +14,28 @@ action "Docker Login" {
   needs = ["Golang Lint"]
 }
 
-# action "Docker Build (GCloud)" {
-#   uses = "actions/docker/cli@master"
-#   needs = ["Docker Login"]
-#   args = "build -f Dockerfile.gcloud -t kbhai/actions:google ."
-# }
+action "Docker Build (GCloud)" {
+  uses = "actions/docker/cli@master"
+  needs = ["Docker Login"]
+  args = "build -f Dockerfile.gcloud -t kbhai/actions:google ."
+}
 
-# action "Docker Push (GCloud)" {
-#   uses = "actions/docker/cli@master"
-#   needs = ["Docker Build (GCloud)"]
-#   args = "push kbhai/actions:google"
-# }
+action "Docker Push (GCloud)" {
+  uses = "actions/docker/cli@master"
+  needs = ["Docker Build (GCloud)"]
+  args = "push kbhai/actions:google"
+}
 
-# action "Google Cloud Login" {
-#   uses = "actions/gcloud/auth@master"
-#   secrets = ["GCLOUD_AUTH"]
-#   needs = ["Docker Push (GCloud)"]
-# }
+action "Google Cloud Login" {
+  uses = "actions/gcloud/auth@master"
+  secrets = ["GCLOUD_AUTH"]
+  needs = ["Docker Push (GCloud)"]
+}
 
-# action "Google Cloud Deploy" {
-#   uses = "komony/actions-public/actions/gcloud-kube@master"
-#   needs = ["Google Cloud Login"]
-# }
+action "Google Cloud Deploy" {
+  uses = "komony/actions-public/actions/gcloud-kube@master"
+  needs = ["Google Cloud Login"]
+}
 
 action "Docker Build (Azure)" {
   uses = "actions/docker/cli@master"
