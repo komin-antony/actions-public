@@ -20,7 +20,7 @@ func helloHandler(res http.ResponseWriter, req *http.Request) {
 		<title>CLOUD_PROVIDER - Hello World</title>
 	</head>
 	<body>
-		Hello World 1 - from CLOUD_PROVIDER
+		Hello World 2 - from CLOUD_PROVIDER
 	</body>
 </html>`,
 	)

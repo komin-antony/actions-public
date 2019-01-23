@@ -1,6 +1,6 @@
 workflow "Deploy Web App" {
   on = "push"
-  resolves = [ "Google Cloud Deploy", "Azure Deploy", "Heroku Deploy" ]
+  resolves = [ "Azure Deploy", "Heroku Deploy", "Google Cloud Deploy" ]
 }
 
 action "Golang Lint" {
