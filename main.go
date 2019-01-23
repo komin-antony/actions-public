@@ -5,6 +5,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"os"
 )
 
 func helloHandler(res http.ResponseWriter, req *http.Request) {
@@ -31,7 +32,13 @@ func defaultHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	http.HandleFunc("/", defaultHandler)
 	http.HandleFunc("/hello", helloHandler)
-	err := http.ListenAndServe(":8080", nil)
+
+	portToListen := os.Getenv("PORT")
+	if len(portToListen) == 0 {
+		portToListen = "8080"
+	}
+
+	err := http.ListenAndServe(":"+portToListen, nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 		return
