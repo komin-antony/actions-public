@@ -3,8 +3,9 @@ workflow "Deploy Web App" {
   resolves = [
     #"Google Cloud Deploy",
     "Azure Deploy",
-    #"Heroku Deploy"
-    ]
+  ]
+
+  #"Heroku Deploy"
 }
 
 action "Golang Lint" {
@@ -55,6 +56,7 @@ action "Docker Push (Azure)" {
 
 action "Azure Deploy" {
   uses = "actions/azure@master"
+  needs = ["Docker Push (Azure)"]
   args = "webapp create --resource-group $RESOURCE_GROUP --plan $APP_SERVICE_PLAN --name $WEBAPP_NAME --deployment-container-image-name $CONTAINER_IMAGE_NAME"
   secrets = ["AZURE_SERVICE_APP_ID", "AZURE_SERVICE_PASSWORD", "AZURE_SERVICE_TENANT"]
   env = {
@@ -72,6 +74,7 @@ action "Azure Deploy" {
 #   secrets = ["HEROKU_API_KEY"]
 # }
 
+
 # action "Heroku Push" {
 #   uses = "actions/heroku@master"
 #   needs = ["Heroku Login"]
@@ -81,6 +84,7 @@ action "Azure Deploy" {
 #     HEROKU_APP = "hello-world-gh-action"
 #   }
 # }
+
 
 # action "Heroku Deploy" {
 #   uses = "actions/heroku@master"
