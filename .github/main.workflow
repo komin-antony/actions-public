@@ -1,9 +1,9 @@
 workflow "Deploy Web App" {
   on = "push"
   resolves = [
-    #"Google Cloud Deploy App",
-    "Docker Push (Azure)",
-    #"Heroku Release"
+    #"Google Cloud Deploy",
+    "Azure Deploy",
+    #"Heroku Deploy"
     ]
 }
 
@@ -36,7 +36,7 @@ action "Docker Login" {
 #   needs = ["Docker Push (GCloud)"]
 # }
 
-# action "Google Cloud Deploy App" {
+# action "Google Cloud Deploy" {
 #   uses = "komony/actions-public/actions/gcloud-kube@master"
 #   needs = ["Google Cloud Login"]
 # }
@@ -53,7 +53,7 @@ action "Docker Push (Azure)" {
   args = "push kbhai/actions:azure"
 }
 
-action "Deploy Webapp" {
+action "Azure Deploy" {
   uses = "actions/azure@master"
   args = "webapp create --resource-group $RESOURCE_GROUP --plan $APP_SERVICE_PLAN --name $WEBAPP_NAME --deployment-container-image-name $CONTAINER_IMAGE_NAME"
   secrets = ["AZURE_SERVICE_APP_ID", "AZURE_SERVICE_PASSWORD", "AZURE_SERVICE_TENANT"]
@@ -82,7 +82,7 @@ action "Deploy Webapp" {
 #   }
 # }
 
-# action "Heroku Release" {
+# action "Heroku Deploy" {
 #   uses = "actions/heroku@master"
 #   needs = ["Heroku Push"]
 #   args = "container:release --app $HEROKU_APP web"
