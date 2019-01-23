@@ -3,7 +3,8 @@ workflow "Deploy Web App" {
   resolves = [
     #"Google Cloud Deploy App",
     "Docker Push (Azure)",
-    #"Heroku Release"]
+    #"Heroku Release"
+    ]
 }
 
 action "Golang Lint" {
