@@ -63,7 +63,7 @@ action "Azure Deploy" {
     APP_SERVICE_PLAN = "helloWorldDemoServicePlan"
     CONTAINER_IMAGE_NAME = "kbhai/actions:azure"
     RESOURCE_GROUP = "myLinuxResourceGroup"
-    WEBAPP_NAME = "helloWorldWebApp"
+    WEBAPP_NAME = "helloWorldWebAppGitHubActions"
   }
 }
 
