@@ -3,9 +3,8 @@ workflow "Deploy Web App" {
   resolves = [
     #"Google Cloud Deploy",
     "Azure Deploy",
+    "Heroku Deploy"
   ]
-
-  #"Heroku Deploy"
 }
 
 action "Golang Lint" {
@@ -67,31 +66,31 @@ action "Azure Deploy" {
   }
 }
 
-# action "Heroku Login" {
-#   uses = "actions/heroku@master"
-#   needs = ["Golang Lint"]
-#   args = "container:login"
-#   secrets = ["HEROKU_API_KEY"]
-# }
+action "Heroku Login" {
+  uses = "actions/heroku@master"
+  needs = ["Golang Lint"]
+  args = "container:login"
+  secrets = ["HEROKU_API_KEY"]
+}
 
 
-# action "Heroku Push" {
-#   uses = "actions/heroku@master"
-#   needs = ["Heroku Login"]
-#   args = "container:push --app $HEROKU_APP web"
-#   secrets = ["HEROKU_API_KEY"]
-#   env = {
-#     HEROKU_APP = "hello-world-gh-action"
-#   }
-# }
+action "Heroku Push" {
+  uses = "actions/heroku@master"
+  needs = ["Heroku Login"]
+  args = "container:push --app $HEROKU_APP web"
+  secrets = ["HEROKU_API_KEY"]
+  env = {
+    HEROKU_APP = "hello-world-gh-action"
+  }
+}
 
 
-# action "Heroku Deploy" {
-#   uses = "actions/heroku@master"
-#   needs = ["Heroku Push"]
-#   args = "container:release --app $HEROKU_APP web"
-#   secrets = ["HEROKU_API_KEY"]
-#   env = {
-#     HEROKU_APP = "hello-world-gh-action"
-#   }
-# }
+action "Heroku Deploy" {
+  uses = "actions/heroku@master"
+  needs = ["Heroku Push"]
+  args = "container:release --app $HEROKU_APP web"
+  secrets = ["HEROKU_API_KEY"]
+  env = {
+    HEROKU_APP = "hello-world-gh-action"
+  }
+}

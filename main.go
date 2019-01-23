@@ -31,7 +31,7 @@ func defaultHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	http.HandleFunc("/", defaultHandler)
 	http.HandleFunc("/hello", helloHandler)
-	err := http.ListenAndServeTLS(":443", "server.crt", "server.key", nil)
+	err := http.ListenAndServe(":80", nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 		return
