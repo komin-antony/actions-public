@@ -58,7 +58,7 @@ action "Azure Deploy" {
   args = "webapp create --resource-group $RESOURCE_GROUP --plan $APP_SERVICE_PLAN --name $WEBAPP_NAME --deployment-container-image-name $CONTAINER_IMAGE_NAME"
   secrets = ["AZURE_SERVICE_APP_ID", "AZURE_SERVICE_PASSWORD", "AZURE_SERVICE_TENANT"]
   env = {
-    APP_SERVICE_PLAN = "helloWorldServicePlan"
+    APP_SERVICE_PLAN = "helloWorldDemoServicePlan"
     CONTAINER_IMAGE_NAME = "kbhai/actions:azure"
     RESOURCE_GROUP = "myLinuxResourceGroup"
     WEBAPP_NAME = "helloWorldWebApp"
