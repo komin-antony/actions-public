@@ -1,12 +1,7 @@
 #!/bin/bash -l
 
-gcloud config set project qualified-smile-226721
-gcloud config set compute/zone us-east4-a
+gcloud config set project $PROJECT_NAME
+gcloud config set compute/zone $PROJECT_ZONE
 
-gcloud container clusters get-credentials hello-cluster
+gcloud container clusters get-credentials $PROJECT_CLUSTER
 kubectl set image deployment/hello-web hello-web=kbhai/actions:google-$GITHUB_SHA
-
-#gcloud container clusters delete hello-cluster --quiet
-#gcloud container clusters create hello-cluster --num-nodes=1
-#kubectl run hello-web --image=kbhai/actions:google-$GITHUB_SHA --port 8080
-#kubectl expose deployment hello-web --type=LoadBalancer --port 80 --target-port 8080

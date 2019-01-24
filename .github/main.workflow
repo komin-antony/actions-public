@@ -35,6 +35,11 @@ action "Google Cloud Login" {
 action "Google Cloud Deploy" {
   uses = "komony/actions-public/actions/gcloud-kube@master"
   needs = ["Google Cloud Login"]
+  env = {
+    PROJECT_NAME = "qualified-smile-226721"
+    PROJECT_ZONE = "us-east4-a"
+    PROJECT_CLUSTER = "hello-cluster"
+  }
 }
 
 action "Docker Build (Azure)" {
