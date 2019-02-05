@@ -7,3 +7,4 @@ On push, the following actions will be run (in parallel):
 - Push Docker images
 - Deploy to Heroku, Google Cloud & Azure
 - Deploy to AWS (pending)
+- Deploy to ZEIT (pending)
